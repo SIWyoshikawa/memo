@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学習ノート</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>ノート一覧</h2>
+            <ul id="note-list"></ul>
+            <button id="new-note-btn">＋ 新規ノート</button>
+        </div>
+
+        <div class="main-content">
+            <div class="toolbar">
+                <label for="font-color">文字色:</label>
+                <input type="color" id="font-color" value="#000000">
+
+                <button id="mark-btn">赤シートマーカー</button>
+
+                <button id="red-sheet-toggle">赤シートモード ON/OFF</button>
+
+                <button id="save-btn">保存</button>
+            </div>
+            <input type="text" id="note-title" placeholder="ノートのタイトルを入力...">
+            <div id="note-editor" contenteditable="true"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
