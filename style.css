@@ -100,8 +100,84 @@ body {
 }
 
 /* 2. 赤シートモードがONの時のスタイル */
-body.red-sheet-mode .red-sheet-marker {
-    color: red; /* 文字色を赤に */
-    background-color: red; /* 背景色も赤にして見えなくする */
+/* 赤シートモードがONの時のスタイル */
+#note-editor.red-sheet-mode span[style*="background-color"] {
+    color: red !important;
+    background-color: red !important;
     border-radius: 3px;
+}
+/* style.css の末尾に追記 */
+
+/* --- ツールバー改善のためのスタイル --- */
+
+/* カラーパレット */
+.color-palette {
+    display: inline-flex; /* 横並びにする */
+    align-items: center;  /* 垂直方向中央揃え */
+    margin-right: 15px;
+    vertical-align: middle;
+}
+
+.color-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%; /* ボタンを円形に */
+    border: 1px solid #ccc;
+    cursor: pointer;
+    margin: 0 3px;
+    padding: 0;
+}
+
+.color-btn:hover {
+    transform: scale(1.1); /* 少し拡大するアニメーション */
+    border: 2px solid #333;
+}
+
+/* ツールバーの区切り線 */
+.separator {
+    display: inline-block;
+    width: 1px;
+    height: 24px;
+    background-color: #ccc;
+    margin: 0 15px;
+    vertical-align: middle;
+}
+/* style.css の末尾に追記 */
+
+/* --- 画像機能のためのスタイル --- */
+
+/* エディタ内の画像共通スタイル */
+#note-editor img {
+    max-width: 100%; /* エディタからはみ出さないように */
+    cursor: pointer;
+}
+
+/* 選択された画像のスタイル */
+#note-editor img.selected {
+    outline: 3px solid #007bff; /* 青い枠線で選択状態を示す */
+    outline-offset: 2px;
+}
+
+/* 画像用のツールバー */
+#image-toolbar {
+    position: absolute; /* 画像の近くに表示するため */
+    background-color: #333;
+    padding: 5px 8px;
+    border-radius: 5px;
+    display: flex;
+    gap: 5px; /* ボタン間の隙間 */
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+#image-toolbar button {
+    background-color: #555;
+    color: white;
+    border: 1px solid #666;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#image-toolbar button:hover {
+    background-color: #007bff;
 }

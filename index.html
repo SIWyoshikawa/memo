@@ -16,20 +16,42 @@
 
         <div class="main-content">
             <div class="toolbar">
-                <label for="font-color">文字色:</label>
-                <input type="color" id="font-color" value="#000000">
-
-                <button id="mark-btn">赤シートマーカー</button>
-
-                <button id="red-sheet-toggle">赤シートモード ON/OFF</button>
-
-                <button id="save-btn">保存</button>
+                <div class="color-palette">
+                <button class="color-btn" data-color="#000000" style="background-color:#000000;" title="黒"></button>
+                <button class="color-btn" data-color="#E53935" style="background-color:#E53935;" title="赤"></button>
+                <button class="color-btn" data-color="#1E88E5" style="background-color:#1E88E5;" title="青"></button>
+                <button class="color-btn" data-color="#43A047" style="background-color:#43A047;" title="緑"></button>
             </div>
+
+            <label for="font-color">他の色:</label>
+            <input type="color" id="font-color" value="#000000">
+            <button id="apply-color-btn">適用</button>
+
+            <span class="separator"></span>
+
+            <button id="mark-btn">赤シートマーカー</button>
+            <button id="unmark-btn">マーカーを消す</button>
+
+            <span class="separator"></span>
+            <button id="insert-image-btn">画像挿入</button>
+            <span class="separator"></span>
+
+            <button id="red-sheet-toggle">赤シートモード ON/OFF</button>
+
+            <button id="save-btn">保存</button>
+        </div>
             <input type="text" id="note-title" placeholder="ノートのタイトルを入力...">
             <div id="note-editor" contenteditable="true"></div>
         </div>
     </div>
-
+    <div id="image-toolbar" style="display: none">
+        <button data-size="25%">小</button>
+        <button data-size="50%">中</button>
+        <button data-size="75%">大</button>
+        <button data-size="auto">元</button>
+    </div>
+    <input type="file" id="image-input" accept="image/*" sytle="display: none">
+    
     <script src="script.js"></script>
 </body>
 </html>
