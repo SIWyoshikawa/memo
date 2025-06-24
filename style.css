@@ -1,183 +1,101 @@
-/* 全体のレイアウト */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+:root {
+    --bg-color: #f8f9fa;
+    --sidebar-bg: #ffffff;
+    --editor-bg: #ffffff;
+    --primary-text: #212529;
+    --secondary-text: #6c757d;
+    --accent-color: #0d6efd;
+    --hover-color: #e9ecef;
+    --border-color: #dee2e6;
+    --red-sheet-marker-bg: rgba(255, 100, 100, 0.3);
+}
+
 body {
-    font-family: sans-serif;
+    font-family: 'Noto Sans JP', sans-serif;
     margin: 0;
+    color: var(--primary-text);
+    background-color: var(--bg-color);
+}
+
+#app-container {
     display: flex;
     height: 100vh;
 }
 
-.container {
-    display: flex;
+/* サイドバー */
+.sidebar { width: 280px; background-color: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; }
+.sidebar h2 { font-size: 1.2rem; font-weight: 700; margin: 0 0 20px 0; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
+#note-list { list-style: none; padding: 0; margin: 0; flex-grow: 1; overflow-y: auto; }
+#note-list li { padding: 12px 15px; cursor: pointer; border-radius: 6px; margin-bottom: 5px; font-weight: 500; transition: background-color 0.2s ease; }
+#note-list li:hover { background-color: var(--hover-color); }
+#note-list li.active { background-color: var(--accent-color); color: white; }
+#new-note-btn { width: 100%; padding: 12px; background-color: var(--accent-color); color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 10px; transition: background-color 0.2s ease; }
+#new-note-btn:hover { background-color: #0b5ed7; }
+
+/* メインコンテンツ */
+.main-content { flex-grow: 1; display: flex; flex-direction: column; }
+.toolbar { padding: 10px 15px; border-bottom: 1px solid var(--border-color); background-color: var(--sidebar-bg); display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.toolbar button, .toolbar-btn-label { background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; padding: 6px 12px; cursor: pointer; font-size: 0.9rem; transition: all 0.2s ease; display: inline-block; }
+.toolbar button:hover, .toolbar-btn-label:hover { background-color: #e9ecef; border-color: #ced4da; }
+.toolbar label { font-size: 0.9rem; margin: 0 5px 0 10px; }
+.toolbar input[type="color"] { width: 30px; height: 30px; border: none; border-radius: 5px; padding: 0; cursor: pointer; background-color: transparent; }
+.color-palette { display: inline-flex; align-items: center; gap: 5px; }
+.color-btn { width: 24px !important; height: 24px !important; border-radius: 50% !important; padding: 0 !important; border: 2px solid white !important; box-shadow: 0 0 0 1px var(--border-color); transition: transform 0.2s ease; }
+.color-btn:hover { transform: scale(1.15); }
+.separator { width: 1px; height: 24px; background-color: var(--border-color); margin: 0 10px; display: inline-block; vertical-align: middle;}
+#note-title { width: 100%; padding: 20px 30px; font-size: 2rem; font-weight: 700; border: none; box-sizing: border-box; background-color: var(--editor-bg); }
+#note-title:focus { outline: none; }
+#note-editor { flex-grow: 1; padding: 0 30px 30px 30px; font-size: 1.1rem; line-height: 1.8; outline: none; overflow-y: auto; background-color: var(--editor-bg); }
+#note-editor img { max-width: 100%; cursor: pointer; border-radius: 8px; }
+
+/* 赤シート・画像ツールバー */
+#note-editor.red-sheet-mode span[style*="background-color"] { color: var(--red-sheet-marker-bg) !important; background-color: var(--red-sheet-marker-bg) !important; border-radius: 4px; }
+#note-editor img.selected { outline: 3px solid var(--accent-color); outline-offset: 3px; }
+#image-toolbar { position: absolute; background-color: #333; padding: 5px 8px; border-radius: 8px; display: flex; gap: 5px; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+#image-toolbar button { background-color: #555; color: white; border: none; padding: 5px 10px; }
+#image-toolbar button:hover { background-color: var(--accent-color); }
+
+/* カスタムスクロールバー */
+#note-list::-webkit-scrollbar, #note-editor::-webkit-scrollbar { width: 10px; }
+#note-list::-webkit-scrollbar-track, #note-editor::-webkit-scrollbar-track { background: transparent; }
+#note-list::-webkit-scrollbar-thumb, #note-editor::-webkit-scrollbar-thumb { background-color: #ced4da; border-radius: 20px; border: 2px solid var(--sidebar-bg); }
+#note-list::-webkit-scrollbar-thumb:hover, #note-editor::-webkit-scrollbar-thumb:hover { background-color: #adb5bd; }
+
+/* 認証画面のスタイル */
+/* #auth-container の既存の定義を、以下の内容に置き換えます */
+
+#auth-container {
     width: 100%;
-}
-
-/* サイドバー（ノート一覧） */
-.sidebar {
-    width: 250px;
-    border-right: 1px solid #ccc;
-    padding: 20px;
-    box-sizing: border-box;
+    height: 100vh;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /* --- グラデーション背景の設定 --- */
+    background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
 }
 
-.sidebar h2 {
-    margin-top: 0;
-}
-
-#note-list {
-    list-style: none;
-    padding: 0;
-    flex-grow: 1; /* 空いたスペースを埋める */
-    overflow-y: auto; /* ノートが増えたらスクロール */
-}
-
-#note-list li {
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-#note-list li:hover, #note-list li.active {
-    background-color: #f0f0f0;
-}
-
-#new-note-btn {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-/* メインコンテンツ（編集エリア） */
-.main-content {
-    flex-grow: 1;
+/* こちらの .form-container の定義も、既存のものと置き換えてください */
+.form-container {
+    width: 380px;
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.95); /* 少しだけ透明な白 */
+    border-radius: 12px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px); /* 背景をぼかすガラスのような効果 */
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-
-.toolbar {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-    background-color: #f7f7f7;
-}
-
-.toolbar button, .toolbar input {
-    margin-right: 10px;
-}
-
-#note-title {
-    width: 100%;
-    padding: 15px;
-    font-size: 1.5em;
-    border: none;
-    border-bottom: 1px solid #eee;
-    box-sizing: border-box;
-}
-
-#note-title:focus {
-    outline: none;
-}
-
-#note-editor {
-    flex-grow: 1;
-    padding: 20px;
-    font-size: 1.1em;
-    line-height: 1.6;
-    outline: none;
-    overflow-y: auto;
-}
-
-/* --- 赤シート機能のスタイル --- */
-
-/* 1. 赤シートで隠す部分のマーカー */
-.red-sheet-marker {
-    background-color: #ffdddd; /* 通常時は薄い赤色で表示 */
-}
-
-/* 2. 赤シートモードがONの時のスタイル */
-/* 赤シートモードがONの時のスタイル */
-#note-editor.red-sheet-mode span[style*="background-color"] {
-    color: red !important;
-    background-color: red !important;
-    border-radius: 3px;
-}
-/* style.css の末尾に追記 */
-
-/* --- ツールバー改善のためのスタイル --- */
-
-/* カラーパレット */
-.color-palette {
-    display: inline-flex; /* 横並びにする */
-    align-items: center;  /* 垂直方向中央揃え */
-    margin-right: 15px;
-    vertical-align: middle;
-}
-
-.color-btn {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%; /* ボタンを円形に */
-    border: 1px solid #ccc;
-    cursor: pointer;
-    margin: 0 3px;
-    padding: 0;
-}
-
-.color-btn:hover {
-    transform: scale(1.1); /* 少し拡大するアニメーション */
-    border: 2px solid #333;
-}
-
-/* ツールバーの区切り線 */
-.separator {
-    display: inline-block;
-    width: 1px;
-    height: 24px;
-    background-color: #ccc;
-    margin: 0 15px;
-    vertical-align: middle;
-}
-/* style.css の末尾に追記 */
-
-/* --- 画像機能のためのスタイル --- */
-
-/* エディタ内の画像共通スタイル */
-#note-editor img {
-    max-width: 100%; /* エディタからはみ出さないように */
-    cursor: pointer;
-}
-
-/* 選択された画像のスタイル */
-#note-editor img.selected {
-    outline: 3px solid #007bff; /* 青い枠線で選択状態を示す */
-    outline-offset: 2px;
-}
-
-/* 画像用のツールバー */
-#image-toolbar {
-    position: absolute; /* 画像の近くに表示するため */
-    background-color: #333;
-    padding: 5px 8px;
-    border-radius: 5px;
-    display: flex;
-    gap: 5px; /* ボタン間の隙間 */
-    z-index: 100;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
-
-#image-toolbar button {
-    background-color: #555;
-    color: white;
-    border: 1px solid #666;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-#image-toolbar button:hover {
-    background-color: #007bff;
-}
+#auth-container h2 { text-align: center; margin-bottom: 25px; color: var(--primary-text); }
+#auth-container input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 6px; box-sizing: border-box; }
+#auth-container button { width: 100%; padding: 12px; border: none; border-radius: 6px; background-color: var(--accent-color); color: white; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background-color 0.2s ease; }
+#auth-container button:hover { background-color: #0b5ed7; }
+#auth-container p { text-align: center; margin-top: 20px; font-size: 0.9rem; }
+#user-info { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.btn-logout { background-color: var(--secondary-text) !important; color: white !important; border-color: var(--secondary-text) !important; }
+.btn-logout:hover { opacity: 0.8; }
