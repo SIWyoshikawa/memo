@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "/app/generated/prisma-client"
+}
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL="prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiMDFKWUdDMEIxM0dERDVOQ1FKTVlLNFdLMjAiLCJ0ZW5hbnRfaWQiOiI5YzUwZTIzMWE2ZDYyZTE2Y2JmYTA5YjgzOGQ5NTVkY2RlMWIzMTJlMTY2MTBmNzliOTE4NTBmYjBkNzg2YWQwIiwiaW50ZXJuYWxfc2VjcmV0IjoiYmNmZDJkNjUtZmQwYy00NTFiLThjZTgtNmM2MGZlODRhZTA5In0.oP_Y53YCxDd6vgPrqNDCzH6q2zQA5-bqTx4RIYiR8U0"")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  notes     Note[]
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  title     String
+  content   String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author    User     @relation(fields: [userId], references: [id])
+  userId    Int
+}
